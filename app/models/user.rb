@@ -4,6 +4,35 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
-  mount_uploader :image, ImageUploader
   has_secure_password
+  mount_uploader :image, ImageUploader
+  enum sex: { 男: 0, 女: 1 }
+  
+  has_many :reactions, foreign_key: 'to_user_id'
+  has_many :likereactions, through: :reactions, source: :to_user
+  
+  has_many :relationships
+  has_many :followings, through: :relationships, source: :follow
+  has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id'
+  has_many :followers, through: :reverses_of_relationship, source: :user
+  
+  def likereaction?(other_user)
+    self.likereactions.include?(other_user)
+  end
+  
+  def follow(other_user)
+    unless self == other_user
+      self.relationships.find_or_create_by(follow_id: other_user.id)
+    end
+  end
+
+  def unfollow(other_user)
+    relationship = self.relationships.find_by(follow_id: other_user.id)
+    relationship.destroy if relationship
+  end
+
+  def following?(other_user)
+    self.followings.include?(other_user)
+  end
+  
 end

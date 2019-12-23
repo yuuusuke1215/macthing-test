@@ -9,7 +9,7 @@
       <%= render 'layouts/error_messages', model: f.object %>
       
       <% if @user.image.present? %>
-        <%= image_tag @user.image, id: :img_prev %>
+        
       <% else %>
         <%= image_tag "hoshifuri.png", :size =>'100x100', id: :img_prev %>
       <% end %>

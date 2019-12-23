@@ -3,9 +3,12 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title"><%= @user.name %></h3>
+        <p><%= @user.sex %></p>
       </div>
       <div class="card-body">
-        
+        <img src=<%= @user.image %> width="100" height="100" class="profile-image">
+        <%= link_to '編集する', edit_user_path, class: "btn btn-primary mt-2" %>
+        <%= link_to '画像を送信する', new_inquiry_path(@user), class: "btn btn-primary mt-2" %>
       </div>
     </div>
   </aside>

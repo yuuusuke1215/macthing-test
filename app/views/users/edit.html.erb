@@ -1,2 +1,53 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3 pt-5">
+
+    <%= form_with(model: @user, local: true) do |f| %>
+      
+      
+      <div class="form-group">
+        <%= f.label :name, 'ユーザーネーム' %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, 'メールアドレス' %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, 'パスワードの確認' %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :"大学名" %><br>
+        <%= f.select :university, [["同志社大学", "同志社大学"], ["京都大学", "京都大学"], ["早稲田大学", "早稲田大学"], ["慶応義塾大学", "慶応義塾大学"], ["東京大学", "東京大学"], ["その他", "その他"]] ,class:"form-control" %>
+      </div>
+      
+      <div class="form-group">
+        性別:
+        <%= f.label '男' %>
+        <%= f.radio_button :sex, :男 %>
+        <%= f.label '女' %>
+        <%= f.radio_button :sex, :女 %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :profile, 'プロフィール' %>
+        <%= f.text_area :profile, size: "20x10", class: 'form-control' %>
+      </div>
+      
+      <div class="field">
+        <p class="image-label"><%= f.label :image, 'プロフィール画像' %></p>
+        <%= f.file_field :image %>
+      </div>
+
+      <%= f.submit '登録する', class: 'btn btn-primary btn-lg mx-auto d-block active mb-5 mt-3' %>
+    <% end %>
+  </div>
+</div>
